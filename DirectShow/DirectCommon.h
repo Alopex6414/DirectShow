@@ -1,13 +1,14 @@
 /*
 *     COPYRIGHT NOTICE
-*     Copyright(c) 2017, Alopex/Helium
+*     Copyright(c) 2017, Team Shanghai Dream Equinox
 *     All rights reserved.
 *
 * @file		DirectCommon.h
 * @brief	This File is DirectX Library Common Header.
 * @author	Alopex/Helium
-* @version	v1.00a
-* @date		2017-10-27
+* @version	v1.10a
+* @date		2017-10-27	v1.00a	alopex	Create This File
+* @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library
 */
 #pragma once
 
