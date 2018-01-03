@@ -11,9 +11,11 @@
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-1-2	v1.11a	alopex	Make Demo And Add Video Play In Window Mode.
 * @date		2018-1-2	v1.21a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-1-3	v1.22a	alopex	Add Thread Safe Variable Makesure Thread Safe(DirectSafe).
 */
 #include "DirectCommon.h"
 #include "DirectShow.h"
+#include "DirectSafe.h"
 
 //------------------------------------------------------------------
 // @Function:	 DirectShow()
@@ -66,6 +68,7 @@ DirectShow::~DirectShow()
 //------------------------------------------------------------------
 long WINAPI DirectShow::DirectShowGetVideoWidth(void) const
 {
+	DirectSafe DirectLock;
 	return m_lVideoWidth;
 }
 
@@ -78,6 +81,7 @@ long WINAPI DirectShow::DirectShowGetVideoWidth(void) const
 //------------------------------------------------------------------
 long WINAPI DirectShow::DirectShowGetVideoHeight(void) const
 {
+	DirectSafe DirectLock;
 	return m_lVideoHeight;
 }
 
@@ -90,6 +94,7 @@ long WINAPI DirectShow::DirectShowGetVideoHeight(void) const
 //------------------------------------------------------------------
 float WINAPI DirectShow::DirectShowGetVideoFramePerSecond(void) const
 {
+	DirectSafe DirectLock;
 	return m_fVideofps;
 }
 
@@ -102,6 +107,8 @@ float WINAPI DirectShow::DirectShowGetVideoFramePerSecond(void) const
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowInit(void)
 {
+	DirectSafe DirectLock;
+
 	//创建IGraphBuilder接口对象
 	VERIFY(CoCreateInstance(CLSID_FilterGraph, NULL, CLSCTX_INPROC_SERVER, IID_IGraphBuilder, (void**)&m_pDirectShowGraphBuilder));
 
@@ -122,6 +129,8 @@ HRESULT WINAPI DirectShow::DirectShowInit(void)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowLoadFile(LPWSTR lpszFileName)
 {
+	DirectSafe DirectLock;
+
 	//加载音频视频文件数据
 	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
 
@@ -137,6 +146,8 @@ HRESULT WINAPI DirectShow::DirectShowLoadFile(LPWSTR lpszFileName)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowLoadAudio(LPWSTR lpszFileName)
 {
+	DirectSafe DirectLock;
+
 	//加载音频文件数据
 	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
 
@@ -152,6 +163,8 @@ HRESULT WINAPI DirectShow::DirectShowLoadAudio(LPWSTR lpszFileName)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowLoadVideo(LPWSTR lpszFileName)
 {
+	DirectSafe DirectLock;
+
 	//加载视频文件数据
 	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
 
@@ -167,6 +180,8 @@ HRESULT WINAPI DirectShow::DirectShowLoadVideo(LPWSTR lpszFileName)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowLoadMP3(LPWSTR lpszFileName)
 {
+	DirectSafe DirectLock;
+
 	//加载MP3音源文件数据
 	VERIFY(m_pDirectShowGraphBuilder->RenderFile(lpszFileName, NULL));
 
@@ -182,6 +197,8 @@ HRESULT WINAPI DirectShow::DirectShowLoadMP3(LPWSTR lpszFileName)
 //------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowAudioPlay(void)
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaControl->Run();
 }
 
@@ -194,6 +211,8 @@ void WINAPI DirectShow::DirectShowAudioPlay(void)
 //------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowAudioPause(void)
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaControl->Pause();
 }
 
@@ -206,6 +225,8 @@ void WINAPI DirectShow::DirectShowAudioPause(void)
 //------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowAudioStop(void)
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaControl->Stop();
 }
 
@@ -218,6 +239,8 @@ void WINAPI DirectShow::DirectShowAudioStop(void)
 //---------------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowAudioGetDuration(REFTIME* pRefDuration) const
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaPosition->get_Duration(pRefDuration);
 }
 
@@ -230,6 +253,8 @@ void WINAPI DirectShow::DirectShowAudioGetDuration(REFTIME* pRefDuration) const
 //---------------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowAudioGetCurrentPosition(REFTIME* pRefPosition) const
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaPosition->get_CurrentPosition(pRefPosition);
 }
 
@@ -242,6 +267,8 @@ void WINAPI DirectShow::DirectShowAudioGetCurrentPosition(REFTIME* pRefPosition)
 //---------------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowAudioSetCurrentPosition(REFTIME RefPosition)
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition);
 }
 
@@ -254,6 +281,8 @@ void WINAPI DirectShow::DirectShowAudioSetCurrentPosition(REFTIME RefPosition)
 //------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowMP3Play(void)
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaControl->Run();
 }
 
@@ -266,6 +295,8 @@ void WINAPI DirectShow::DirectShowMP3Play(void)
 //------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowMP3Pause(void)
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaControl->Pause();
 }
 
@@ -278,6 +309,8 @@ void WINAPI DirectShow::DirectShowMP3Pause(void)
 //------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowMP3Stop(void)
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaControl->Stop();
 }
 
@@ -290,6 +323,8 @@ void WINAPI DirectShow::DirectShowMP3Stop(void)
 //---------------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowMP3GetDuration(REFTIME* pRefDuration) const
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaPosition->get_Duration(pRefDuration);
 }
 
@@ -302,6 +337,8 @@ void WINAPI DirectShow::DirectShowMP3GetDuration(REFTIME* pRefDuration) const
 //---------------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowMP3GetCurrentPosition(REFTIME* pRefPosition) const
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaPosition->get_CurrentPosition(pRefPosition);
 }
 
@@ -314,6 +351,8 @@ void WINAPI DirectShow::DirectShowMP3GetCurrentPosition(REFTIME* pRefPosition) c
 //---------------------------------------------------------------------------
 void WINAPI DirectShow::DirectShowMP3SetCurrentPosition(REFTIME RefPosition)
 {
+	DirectSafe DirectLock;
+
 	m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition);
 }
 
@@ -326,6 +365,7 @@ void WINAPI DirectShow::DirectShowMP3SetCurrentPosition(REFTIME RefPosition)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowGetVideoInfo(void)
 {
+	DirectSafe DirectLock;
 	long VideoWidth;
 	long VideoHeight;
 	REFTIME AvgTimePerFrame;
@@ -353,6 +393,7 @@ HRESULT WINAPI DirectShow::DirectShowGetVideoInfo(void)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd)
 {
+	DirectSafe DirectLock;
 	RECT WindowRect;
 	long VideoWidth;
 	long VideoHeight;
@@ -398,6 +439,7 @@ HRESULT WINAPI DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd, RECT sRect)
 {
+	DirectSafe DirectLock;
 	long VideoWidth;
 	long VideoHeight;
 	REFTIME AvgTimePerFrame;
@@ -440,6 +482,7 @@ HRESULT WINAPI DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd, RECT sRect)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowVideoPlayWait(void)
 {
+	DirectSafe DirectLock;
 	long evCode = 0;
 
 	VERIFY(m_pDirectShowMediaControl->Run());
@@ -460,6 +503,8 @@ HRESULT WINAPI DirectShow::DirectShowVideoPlayWait(void)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowVideoPlay(void)
 {
+	DirectSafe DirectLock;
+
 	VERIFY(m_pDirectShowMediaControl->Run());
 
 	return S_OK;//OK
@@ -474,6 +519,8 @@ HRESULT WINAPI DirectShow::DirectShowVideoPlay(void)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowVideoPause(void)
 {
+	DirectSafe DirectLock;
+
 	VERIFY(m_pDirectShowMediaControl->Pause());
 
 	return S_OK;//OK
@@ -488,6 +535,8 @@ HRESULT WINAPI DirectShow::DirectShowVideoPause(void)
 //------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowVideoStop(void)
 {
+	DirectSafe DirectLock;
+
 	VERIFY(m_pDirectShowMediaControl->Stop());
 
 	return S_OK;//OK
@@ -502,6 +551,8 @@ HRESULT WINAPI DirectShow::DirectShowVideoStop(void)
 //---------------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowVideoGetDuration(REFTIME* pRefDuration) const
 {
+	DirectSafe DirectLock;
+
 	VERIFY(m_pDirectShowMediaPosition->get_Duration(pRefDuration));
 
 	return S_OK;//OK
@@ -516,6 +567,8 @@ HRESULT WINAPI DirectShow::DirectShowVideoGetDuration(REFTIME* pRefDuration) con
 //---------------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowVideoGetCurrentPosition(REFTIME* pRefPosition) const
 {
+	DirectSafe DirectLock;
+
 	VERIFY(m_pDirectShowMediaPosition->get_CurrentPosition(pRefPosition));
 
 	return S_OK;//OK
@@ -530,6 +583,8 @@ HRESULT WINAPI DirectShow::DirectShowVideoGetCurrentPosition(REFTIME* pRefPositi
 //---------------------------------------------------------------------------
 HRESULT WINAPI DirectShow::DirectShowVideoSetCurrentPosition(REFTIME RefPosition)
 {
+	DirectSafe DirectLock;
+
 	VERIFY(m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition));
 
 	return S_OK;//OK

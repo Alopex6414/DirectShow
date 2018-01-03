@@ -11,6 +11,7 @@
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-1-2	v1.11a	alopex	Make Demo And Add Video Play In Window Mode.
 * @date		2018-1-2	v1.21a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
+* @date		2018-1-3	v1.22a	alopex	Add Thread Safe Variable Makesure Thread Safe(DirectSafe).
 */
 #pragma once
 
