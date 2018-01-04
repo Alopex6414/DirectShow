@@ -85,12 +85,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DirectSafe.cpp" />
     <ClCompile Include="DirectShow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectCommon.h" />
-    <ClInclude Include="DirectSafe.h" />
     <ClInclude Include="DirectShow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

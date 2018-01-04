@@ -18,18 +18,12 @@
     <ClCompile Include="DirectShow.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DirectSafe.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectShow.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DirectCommon.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectSafe.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
