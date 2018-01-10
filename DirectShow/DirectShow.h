@@ -13,6 +13,7 @@
 * @date		2018-1-2	v1.21a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-1-3	v1.22a	alopex	Add Thread Safe Variable Makesure Thread Safe(DirectSafe).
 * @date		2018-1-4	v1.23a	alopex	Cancel Thread Safe Variable(DirectSafe).
+* @date		2018-1-10	v1.24a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 */
 #pragma once
 
@@ -50,6 +51,9 @@ private:
 	long m_lVideoWidth;							//Video Origin Width
 	long m_lVideoHeight;						//Video Origin Height
 	float m_fVideofps;							//Video Origin Frame Per Second(fps)
+
+	CRITICAL_SECTION m_cs;						//Thread Safe(CriticalSection)
+	bool m_bThreadSafe;							//Thread Safe Status
 
 public:
 	DirectShow();	//DirectShow Constructor Function(DirectShow¹¹Ôìº¯Êý)

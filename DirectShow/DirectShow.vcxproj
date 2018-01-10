@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClInclude Include="DirectCommon.h" />
     <ClInclude Include="DirectShow.h" />
+    <ClInclude Include="DirectThreadSafe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
