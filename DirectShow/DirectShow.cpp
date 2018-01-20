@@ -6,7 +6,7 @@
 * @file		DirectShow.cpp
 * @brief	This Program is DirectShow DLL Project.
 * @author	Alopex/Helium
-* @version	v1.23a
+* @version	v1.24a
 * @date		2017-11-1	v1.00a	alopex	Create This Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-1-2	v1.11a	alopex	Make Demo And Add Video Play In Window Mode.
