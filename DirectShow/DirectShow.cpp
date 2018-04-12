@@ -6,7 +6,7 @@
 * @file		DirectShow.cpp
 * @brief	This Program is DirectShow DLL Project.
 * @author	Alopex/Helium
-* @version	v1.24a
+* @version	v1.25a
 * @date		2017-11-1	v1.00a	alopex	Create This Project.
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-1-2	v1.11a	alopex	Make Demo And Add Video Play In Window Mode.
@@ -14,6 +14,7 @@
 * @date		2018-1-3	v1.22a	alopex	Add Thread Safe Variable Makesure Thread Safe(DirectSafe).
 * @date		2018-1-4	v1.23a	alopex	Cancel Thread Safe Variable(DirectSafe).
 * @date		2018-1-10	v1.24a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-4-12	v1.25a	alopex	Add Macro Call Mode.
 */
 #include "DirectCommon.h"
 #include "DirectShow.h"
@@ -73,7 +74,7 @@ DirectShow::~DirectShow()
 // @Para: None
 // @Return: long
 //------------------------------------------------------------------
-long WINAPI DirectShow::DirectShowGetVideoWidth(void) const
+long DIRECTSHOW_CALLMODE DirectShow::DirectShowGetVideoWidth(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_lVideoWidth;
@@ -86,7 +87,7 @@ long WINAPI DirectShow::DirectShowGetVideoWidth(void) const
 // @Para: None
 // @Return: long
 //------------------------------------------------------------------
-long WINAPI DirectShow::DirectShowGetVideoHeight(void) const
+long DIRECTSHOW_CALLMODE DirectShow::DirectShowGetVideoHeight(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_lVideoHeight;
@@ -99,7 +100,7 @@ long WINAPI DirectShow::DirectShowGetVideoHeight(void) const
 // @Para: None
 // @Return: long
 //------------------------------------------------------------------
-float WINAPI DirectShow::DirectShowGetVideoFramePerSecond(void) const
+float DIRECTSHOW_CALLMODE DirectShow::DirectShowGetVideoFramePerSecond(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_fVideofps;
@@ -112,7 +113,7 @@ float WINAPI DirectShow::DirectShowGetVideoFramePerSecond(void) const
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowInit(void)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowInit(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -134,7 +135,7 @@ HRESULT WINAPI DirectShow::DirectShowInit(void)
 // @Para: LPWSTR lpszFileName(文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowLoadFile(LPWSTR lpszFileName)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowLoadFile(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -151,7 +152,7 @@ HRESULT WINAPI DirectShow::DirectShowLoadFile(LPWSTR lpszFileName)
 // @Para: LPWSTR lpszFileName(文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowLoadAudio(LPWSTR lpszFileName)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowLoadAudio(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -168,7 +169,7 @@ HRESULT WINAPI DirectShow::DirectShowLoadAudio(LPWSTR lpszFileName)
 // @Para: LPWSTR lpszFileName(文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowLoadVideo(LPWSTR lpszFileName)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowLoadVideo(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -185,7 +186,7 @@ HRESULT WINAPI DirectShow::DirectShowLoadVideo(LPWSTR lpszFileName)
 // @Para: LPWSTR lpszFileName(MP3音源文件相对地址)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowLoadMP3(LPWSTR lpszFileName)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowLoadMP3(LPWSTR lpszFileName)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -202,7 +203,7 @@ HRESULT WINAPI DirectShow::DirectShowLoadMP3(LPWSTR lpszFileName)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowAudioPlay(void)
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowAudioPlay(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Run();
@@ -215,7 +216,7 @@ void WINAPI DirectShow::DirectShowAudioPlay(void)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowAudioPause(void)
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowAudioPause(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Pause();
@@ -228,7 +229,7 @@ void WINAPI DirectShow::DirectShowAudioPause(void)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowAudioStop(void)
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowAudioStop(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Stop();
@@ -241,7 +242,7 @@ void WINAPI DirectShow::DirectShowAudioStop(void)
 // @Para: REFTIME* pRefDuration(文件总长度)
 // @Return: None
 //---------------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowAudioGetDuration(REFTIME* pRefDuration) const
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowAudioGetDuration(REFTIME* pRefDuration) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->get_Duration(pRefDuration);
@@ -254,7 +255,7 @@ void WINAPI DirectShow::DirectShowAudioGetDuration(REFTIME* pRefDuration) const
 // @Para: REFTIME* pRefPosition(播放位置)
 // @Return: None
 //---------------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowAudioGetCurrentPosition(REFTIME* pRefPosition) const
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowAudioGetCurrentPosition(REFTIME* pRefPosition) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->get_CurrentPosition(pRefPosition);
@@ -267,7 +268,7 @@ void WINAPI DirectShow::DirectShowAudioGetCurrentPosition(REFTIME* pRefPosition)
 // @Para: REFTIME RefPosition(播放位置)
 // @Return: None
 //---------------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowAudioSetCurrentPosition(REFTIME RefPosition)
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowAudioSetCurrentPosition(REFTIME RefPosition)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition);
@@ -280,7 +281,7 @@ void WINAPI DirectShow::DirectShowAudioSetCurrentPosition(REFTIME RefPosition)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowMP3Play(void)
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowMP3Play(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Run();
@@ -293,7 +294,7 @@ void WINAPI DirectShow::DirectShowMP3Play(void)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowMP3Pause(void)
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowMP3Pause(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Pause();
@@ -306,7 +307,7 @@ void WINAPI DirectShow::DirectShowMP3Pause(void)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowMP3Stop(void)
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowMP3Stop(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaControl->Stop();
@@ -319,7 +320,7 @@ void WINAPI DirectShow::DirectShowMP3Stop(void)
 // @Para: REFTIME* pRefDuration(文件总长度)
 // @Return: None
 //---------------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowMP3GetDuration(REFTIME* pRefDuration) const
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowMP3GetDuration(REFTIME* pRefDuration) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->get_Duration(pRefDuration);
@@ -332,7 +333,7 @@ void WINAPI DirectShow::DirectShowMP3GetDuration(REFTIME* pRefDuration) const
 // @Para: REFTIME* pRefPosition(播放位置)
 // @Return: None
 //---------------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowMP3GetCurrentPosition(REFTIME* pRefPosition) const
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowMP3GetCurrentPosition(REFTIME* pRefPosition) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->get_CurrentPosition(pRefPosition);
@@ -345,7 +346,7 @@ void WINAPI DirectShow::DirectShowMP3GetCurrentPosition(REFTIME* pRefPosition) c
 // @Para: REFTIME RefPosition(播放位置)
 // @Return: None
 //---------------------------------------------------------------------------
-void WINAPI DirectShow::DirectShowMP3SetCurrentPosition(REFTIME RefPosition)
+void DIRECTSHOW_CALLMODE DirectShow::DirectShowMP3SetCurrentPosition(REFTIME RefPosition)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pDirectShowMediaPosition->put_CurrentPosition(RefPosition);
@@ -358,7 +359,7 @@ void WINAPI DirectShow::DirectShowMP3SetCurrentPosition(REFTIME RefPosition)
 // @Para: HWND hWnd(窗口句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowGetVideoInfo(void)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowGetVideoInfo(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	long VideoWidth;
@@ -386,7 +387,7 @@ HRESULT WINAPI DirectShow::DirectShowGetVideoInfo(void)
 // @Para: HWND hWnd(窗口句柄)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	RECT WindowRect;
@@ -432,7 +433,7 @@ HRESULT WINAPI DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd)
 // @Para: RECT sRect(视频播放区域)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd, RECT sRect)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd, RECT sRect)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	long VideoWidth;
@@ -475,7 +476,7 @@ HRESULT WINAPI DirectShow::DirectShowSetVideoPlayInWindow(HWND hWnd, RECT sRect)
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowVideoPlayWait(void)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowVideoPlayWait(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	long evCode = 0;
@@ -496,7 +497,7 @@ HRESULT WINAPI DirectShow::DirectShowVideoPlayWait(void)
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowVideoPlay(void)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowVideoPlay(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -512,7 +513,7 @@ HRESULT WINAPI DirectShow::DirectShowVideoPlay(void)
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowVideoPause(void)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowVideoPause(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -528,7 +529,7 @@ HRESULT WINAPI DirectShow::DirectShowVideoPause(void)
 // @Para: None
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowVideoStop(void)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowVideoStop(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -544,7 +545,7 @@ HRESULT WINAPI DirectShow::DirectShowVideoStop(void)
 // @Para: REFTIME* pRefDuration(文件总长度)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowVideoGetDuration(REFTIME* pRefDuration) const
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowVideoGetDuration(REFTIME* pRefDuration) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -560,7 +561,7 @@ HRESULT WINAPI DirectShow::DirectShowVideoGetDuration(REFTIME* pRefDuration) con
 // @Para: REFTIME* pRefPosition(当前播放位置)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowVideoGetCurrentPosition(REFTIME* pRefPosition) const
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowVideoGetCurrentPosition(REFTIME* pRefPosition) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -576,7 +577,7 @@ HRESULT WINAPI DirectShow::DirectShowVideoGetCurrentPosition(REFTIME* pRefPositi
 // @Para: REFTIME RefPosition(播放位置)
 // @Return: HRESULT(初始化状态:成功:S_OK,失败:E_FAIL)
 //---------------------------------------------------------------------------
-HRESULT WINAPI DirectShow::DirectShowVideoSetCurrentPosition(REFTIME RefPosition)
+HRESULT DIRECTSHOW_CALLMODE DirectShow::DirectShowVideoSetCurrentPosition(REFTIME RefPosition)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
